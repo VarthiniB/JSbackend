@@ -1,24 +1,27 @@
 const express = require('express')
 const cors = require('cors');
 const app = express();
-var AWS = require("aws-sdk");
-
-AWS.config.getCredentials(function(err) {
-  if (err) console.log(err.stack);
-  // credentials not loaded
-  else {
-    console.log("Access key:", AWS.config.credentials.accessKeyId);
-    console.log("Secret access key:", AWS.config.credentials.secretAccessKey);
-  }
-});
-AWS.config.update({
-  region: "us-east-2",
-  endpoint: "http://localhost:8000"
-});
+var mysql = require('mysql');
 
 app.use(cors({
   origin: 'http://localhost:4200'
 }));
+
+var con = mysql.createConnection({
+  host     : 'database-1.cysokewdwqua.us-east-1.rds.amazonaws.com',
+  port     : '3306',
+  user     : 'minerva',
+  password : 'Gnanambigai7&',
+  database: "minerva"
+   });
+  
+con.connect(function(err) {
+    if (err) {
+      return console.error('error: ' + err.message);
+    }
+});
+
+
 
 app.get('/', (req, res) => {
   res.send('Hello Job Search - get mongo db data to chart through http call!')
@@ -29,8 +32,14 @@ app.get('/getCalenderData', (req, res) => {
 });
 
 app.get('/getTablePaginated', (req, res) => {
-  res.send('send all applied in descending order for open status')
-});
+  
+  con.query("SELECT * FROM jobs", function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+    res.send(result)
+
+  });
+ });
 
 app.get('/getCountApplied', (req, res) => {
   res.send('get Applied count')
@@ -74,4 +83,7 @@ app.post('/UpdateAnyEntry', (req, res) => {
 
 app.listen(7000, () => {
   console.log('Example app listening on port 7000!')
-});
+}).on('error', function(err){
+  console.log('on error handler');
+  console.log(err);
+});;
