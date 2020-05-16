@@ -12,10 +12,13 @@ var con = mysql.createConnection({
     if (err) {
       return console.error('error: ' + err.message);
     }
+});
+
+
     con.query("SELECT * FROM jobs", function (err, result, fields) {
         if (err) throw err;
         console.log(result);
-        con.end();
+      
       });
-  });
+ 
 

@@ -2,6 +2,10 @@ const express = require('express')
 const cors = require('cors');
 const app = express();
 var mysql = require('mysql');
+var bodyParser = require('body-parser');
+app.use(bodyParser());
+
+
 
 app.use(cors({
   origin: 'http://localhost:4200'
@@ -31,18 +35,42 @@ app.get('/getCalenderData', (req, res) => {
   res.send('send this month calendar data')
 });
 
-app.get('/getTablePaginated', (req, res) => {
+app.post('/getTablePaginated', (req, res) => {
+
+  console.log("=="+JSON.stringify(req.body.uid));
+
+  if(con  == null){
+    con.connect(function(err) {
+      if (err) {
+        return console.error('error: ' + err.message);
+      }
+  });
+  }
   
-  con.query("SELECT * FROM jobs", function (err, result, fields) {
+  con.query("SELECT * FROM jobs where sno='"+req.body.uid+"'", function (err, result, fields) {
     if (err) throw err;
-    console.log(result);
+   // console.log(result);
     res.send(result)
 
   });
  });
 
 app.get('/getCountApplied', (req, res) => {
-  res.send('get Applied count')
+
+  if(con  == null){
+    con.connect(function(err) {
+      if (err) {
+        return console.error('error: ' + err.message);
+      }
+  });
+  }
+  
+  con.query("SELECT * FROM jobs", function (err, result, fields) {
+    if (err) throw err;
+   // console.log(result);
+    res.send(result)
+
+  });
 });
 
 app.get('/getCountAppliedToday', (req, res) => {
@@ -86,4 +114,9 @@ app.listen(7000, () => {
 }).on('error', function(err){
   console.log('on error handler');
   console.log(err);
-});;
+});
+
+process.on('uncaughtException', function(err) {
+  console.log('process.on handler');
+  console.log(err);
+});
