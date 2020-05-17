@@ -66,13 +66,12 @@ app.post('/getTablePaginated', (req, res) => {
 
   //console.log("=="+JSON.stringify(req.body.uid));
 
-  if(con  == null){
-    con.connect(function(err) {
-      if (err) {
-        return console.error('error: ' + err.message);
-      }
-  });
-  }
+  var con=getconnection();
+  con.connect(function(err) {
+    if (err) {
+      return console.error('error: ' + err.message);
+    }
+});
   
   con.query("SELECT * FROM jobs where sno='"+req.body.uid+"' order by jno desc", function (err, result, fields) {
     if (err) throw err;
@@ -85,13 +84,12 @@ app.post('/getTablePaginated', (req, res) => {
 
 app.post('/getCountApplied', (req, res) => {
 
-  if(con  == null){
-    con.connect(function(err) {
-      if (err) {
-        return console.error('error: ' + err.message);
-      }
-  });
-  }
+  var con=getconnection();
+  con.connect(function(err) {
+    if (err) {
+      return console.error('error: ' + err.message);
+    }
+});
   
   con.query("SELECT count(*) as countalljobs FROM jobs where sno='"+req.body.uid+"'", function (err, result) {
     if (err) throw err;
@@ -104,13 +102,12 @@ app.post('/getCountApplied', (req, res) => {
 
 app.post('/getCountAppliedToday', (req, res) => {
   
-  if(con  == null){
-    con.connect(function(err) {
-      if (err) {
-        return console.error('error: ' + err.message);
-      }
-  });
-  }
+  var con=getconnection();
+  con.connect(function(err) {
+    if (err) {
+      return console.error('error: ' + err.message);
+    }
+});
   
   con.query("SELECT count(*) as countTodayjobs FROM jobs where sno='"+req.body.uid+"' and Date(doa)= CURDATE()", function (err, result) {
     if (err) throw err;
@@ -123,14 +120,12 @@ app.post('/getCountAppliedToday', (req, res) => {
 
 app.post('/getUpcomingEvents', (req, res) => {
   
-  if(con  == null){
-    con.connect(function(err) {
-      if (err) {
-        return console.error('error: ' + err.message);
-      }
-  });
-  }
-  
+  var con=getconnection();
+  con.connect(function(err) {
+    if (err) {
+      return console.error('error: ' + err.message);
+    }
+});
   con.query("SELECT count(*) as countallevents FROM jobs where sno='"+req.body.uid+"' and dof IS NOT NULL", function (err, result) {
     if (err) throw err;
    // console.log(result);
@@ -142,13 +137,12 @@ app.post('/getUpcomingEvents', (req, res) => {
 
 app.post('/getTodayTask', (req, res) => {
 	 
-  if(con  == null){
-    con.connect(function(err) {
-      if (err) {
-        return console.error('error: ' + err.message);
-      }
-  });
-  }
+  var con=getconnection();
+  con.connect(function(err) {
+    if (err) {
+      return console.error('error: ' + err.message);
+    }
+});
   
   con.query("SELECT count(*) as countTodayevents FROM jobs where sno='"+req.body.uid+"' and Date(dof)= CURDATE()", function (err, result) {
     if (err) throw err;
@@ -159,14 +153,12 @@ app.post('/getTodayTask', (req, res) => {
   });
 });
 app.post('/addNewJob', (req, res) => {
-	
-  if(con  == null){
-    con.connect(function(err) {
-      if (err) {
-        return console.error('error: ' + err.message);
-      }
-  });
-  }
+  var con=getconnection();
+  con.connect(function(err) {
+    if (err) {
+      return console.error('error: ' + err.message);
+    }
+});
   var que = "insert into jobs (sno,position,org,location,url,status,remarks,doa,dof)values ('"+req.body.sno+"','"+req.body.position+"','"+req.body.org+"','"+req.body.location+"','"+req.body.url+"','"+req.body.status+"','"+req.body.remarks+"','"+req.body.doa+"',"+(req.body.dof==""?  null : ",'"+req.body.dof+"'")+")"
  
  console.log("==="+que);
@@ -200,13 +192,12 @@ app.post('/UpdateAnyEntry', (req, res) => {
 });
 
 app.post('/getUserId', (req, res) => {
-  if(con  == null){
-    con.connect(function(err) {
-      if (err) {
-        return console.error('error: ' + err.message);
-      }
-  });
-  }
+  var con=getconnection();
+  con.connect(function(err) {
+    if (err) {
+      return console.error('error: ' + err.message);
+    }
+});
   
   con.query("SELECT sno  FROM user where email='"+req.body.email+"'", function (err, result) {
     if (err) throw err;
@@ -218,13 +209,12 @@ app.post('/getUserId', (req, res) => {
 });
 
 app.post('/addUser', (req, res) => {
-  if(con  == null){
-    con.connect(function(err) {
-      if (err) {
-        return console.error('error: ' + err.message);
-      }
-  });
-  }
+  var con=getconnection();
+  con.connect(function(err) {
+    if (err) {
+      return console.error('error: ' + err.message);
+    }
+});
   
   con.query("insert into user (LastName,FirstName,email,dreamJob,dreamSal,dreamcomp) values ('"+req.body.lname+"','"+req.body.fname+"','"+req.body.email+"','"+req.body.djob+"','"+req.body.ts+"','"+req.body.dc+"')", function (err, result) {
     if (err) throw err;
@@ -237,13 +227,12 @@ app.post('/addUser', (req, res) => {
 
 
 app.post('/getUserDetails', (req, res) => {
-  if(con  == null){
-    con.connect(function(err) {
-      if (err) {
-        return console.error('error: ' + err.message);
-      }
-  });
-  }
+  var con=getconnection();
+  con.connect(function(err) {
+    if (err) {
+      return console.error('error: ' + err.message);
+    }
+});
   
   con.query("SELECT * FROM user where sno='"+req.body.sno+"'", function (err, result) {
     if (err) throw err;
