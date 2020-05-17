@@ -8,7 +8,7 @@ app.use(bodyParser());
 
 
 app.use(cors({
-  origin: 'http://localhost:4200'
+  origin: 'http://ec2-18-189-28-91.us-east-2.compute.amazonaws.com:4200'
 }));
 
 var con = mysql.createConnection({
