@@ -26,6 +26,18 @@ con.connect(function(err) {
 });
 
 
+ function getconnection()
+{
+  return mysql.createConnection({
+    host     : 'database-1.cysokewdwqua.us-east-1.rds.amazonaws.com',
+    port     : '3306',
+    user     : 'minerva',
+    password : 'Gnanambigai7&',
+    database: "minerva"
+     });
+}
+ 
+
 
 app.get('/', (req, res) => {
   res.send('Hello Job Search - get mongo db data to chart through http call!')
@@ -33,13 +45,7 @@ app.get('/', (req, res) => {
 
 app.post('/getCalenderData', (req, res) => {
 
-  if(con  == null){
-    con.connect(function(err) {
-      if (err) {
-        return console.error('error: ' + err.message);
-      }
-  });
-  }
+  var con=getconnection();
   
   con.query("SELECT  count(*) as count, date(doa) as date  FROM jobs where sno='"+req.body.uid+"'and MONTH(doa) = '"+req.body.month+"' group by date(doa)", function (err, result, fields) {
     if (err) throw err;
