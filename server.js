@@ -33,7 +33,8 @@ var con = mysql.createConnection({
     port     : '3306',
     user     : 'minerva',
     password : 'Gnanambigai7&',
-    database: "minerva"
+    database: "minerva",
+    connectTimeout: 100000
      });
 }
  
@@ -46,10 +47,15 @@ app.get('/', (req, res) => {
 app.post('/getCalenderData', (req, res) => {
 
   var con=getconnection();
-  
+  con.connect(function(err) {
+    if (err) {
+      return console.error('error: ' + err.message);
+    }
+});
   con.query("SELECT  count(*) as count, date(doa) as date  FROM jobs where sno='"+req.body.uid+"'and MONTH(doa) = '"+req.body.month+"' group by date(doa)", function (err, result, fields) {
     if (err) throw err;
    // console.log(result);
+   con.end();
     res.send(result)
 
   });
