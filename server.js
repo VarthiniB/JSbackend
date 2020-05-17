@@ -16,7 +16,8 @@ var con = mysql.createConnection({
   port     : '3306',
   user     : 'minerva',
   password : 'Gnanambigai7&',
-  database: "minerva"
+  database: "minerva",
+  connectTimeout: 100000
    });
   
 /*con.connect(function(err) {
