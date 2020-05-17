@@ -19,11 +19,11 @@ var con = mysql.createConnection({
   database: "minerva"
    });
   
-con.connect(function(err) {
+/*con.connect(function(err) {
     if (err) {
       return console.error('error: ' + err.message);
     }
-});
+});*/
 
 
  function getconnection()
