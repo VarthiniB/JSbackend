@@ -15,7 +15,7 @@ var con = mysql.createConnection({
   host     : 'database-1.cysokewdwqua.us-east-1.rds.amazonaws.com',
   port     : '3306',
   user     : 'minerva',
-  password : 'Gnanambigai7&',
+  password : '',
   database: "minerva",
   connectTimeout: 100000
    });
@@ -33,7 +33,7 @@ var con = mysql.createConnection({
     host     : 'database-1.cysokewdwqua.us-east-1.rds.amazonaws.com',
     port     : '3306',
     user     : 'minerva',
-    password : 'Gnanambigai7&',
+    password : '',
     database: "minerva",
     connectTimeout: 100000
      });
