@@ -77,6 +77,7 @@ app.post('/getTablePaginated', (req, res) => {
   con.query("SELECT * FROM jobs where sno='"+req.body.uid+"' order by jno desc", function (err, result, fields) {
     if (err) throw err;
    // console.log(result);
+   con.end();
     res.send(result)
 
   });
@@ -95,6 +96,7 @@ app.post('/getCountApplied', (req, res) => {
   con.query("SELECT count(*) as countalljobs FROM jobs where sno='"+req.body.uid+"'", function (err, result) {
     if (err) throw err;
    // console.log(result);
+   con.end();
     res.send(result)
 
   });
@@ -113,6 +115,7 @@ app.post('/getCountAppliedToday', (req, res) => {
   con.query("SELECT count(*) as countTodayjobs FROM jobs where sno='"+req.body.uid+"' and Date(doa)= CURDATE()", function (err, result) {
     if (err) throw err;
    // console.log(result);
+   con.end();
     res.send(result)
 
   });
@@ -131,6 +134,7 @@ app.post('/getUpcomingEvents', (req, res) => {
   con.query("SELECT count(*) as countallevents FROM jobs where sno='"+req.body.uid+"' and dof IS NOT NULL", function (err, result) {
     if (err) throw err;
    // console.log(result);
+   con.end();
     res.send(result)
 
   });
@@ -149,6 +153,7 @@ app.post('/getTodayTask', (req, res) => {
   con.query("SELECT count(*) as countTodayevents FROM jobs where sno='"+req.body.uid+"' and Date(dof)= CURDATE()", function (err, result) {
     if (err) throw err;
    // console.log(result);
+   con.end();
     res.send(result)
 
   });
@@ -168,6 +173,7 @@ app.post('/addNewJob', (req, res) => {
   con.query(que, function (err, result) {
     if (err) throw err;
    // console.log(result);
+   con.end();
     res.send(result)
 
   });
@@ -205,6 +211,7 @@ app.post('/getUserId', (req, res) => {
   con.query("SELECT sno  FROM user where email='"+req.body.email+"'", function (err, result) {
     if (err) throw err;
    // console.log(result);
+   con.end();
     res.send(result)
 
   });
@@ -222,6 +229,7 @@ app.post('/addUser', (req, res) => {
   con.query("insert into user (LastName,FirstName,email,dreamJob,dreamSal,dreamcomp) values ('"+req.body.lname+"','"+req.body.fname+"','"+req.body.email+"','"+req.body.djob+"','"+req.body.ts+"','"+req.body.dc+"')", function (err, result) {
     if (err) throw err;
    // console.log(result);
+   con.end();
     res.send(result)
 
   });
@@ -240,6 +248,7 @@ app.post('/getUserDetails', (req, res) => {
   con.query("SELECT * FROM user where sno='"+req.body.sno+"'", function (err, result) {
     if (err) throw err;
    // console.log(result);
+   con.end();
     res.send(result)
 
   });
