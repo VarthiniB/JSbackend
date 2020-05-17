@@ -159,7 +159,7 @@ app.post('/addNewJob', (req, res) => {
       return console.error('error: ' + err.message);
     }
 });
-  var que = "insert into jobs (sno,position,org,location,url,status,remarks,doa,dof)values ('"+req.body.sno+"','"+req.body.position+"','"+req.body.org+"','"+req.body.location+"','"+req.body.url+"','"+req.body.status+"','"+req.body.remarks+"','"+req.body.doa+"',"+(req.body.dof==""?  null : ",'"+req.body.dof+"'")+")"
+  var que = "insert into jobs (sno,position,org,location,url,status,remarks,doa,dof)values ('"+req.body.sno+"','"+req.body.position+"','"+req.body.org+"','"+req.body.location+"','"+req.body.url+"','"+req.body.status+"','"+req.body.remarks+"','"+req.body.doa+"'"+(req.body.dof==""?  null : ",'"+req.body.dof+"'")+")"
  
  console.log("==="+que);
   con.query(que, function (err, result) {
